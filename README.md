@@ -49,6 +49,10 @@ todo=# CREATE TABLE specialties (id serial PRIMARY KEY, specialty varchar);
 ```
 
 ```
+CREATE TABLE doctors_patients (id serial PRIMARY KEY, doctor_id int, patient_id int);
+```
+
+```
 todo=# CREATE DATABASE doctor_office_test WITH TEMPLATE doctor_office;
 ```
 
