@@ -37,11 +37,15 @@ username=# \c doctor_office;
 ```
 
 ```
-todo=# CREATE TABLE doctors (id serial PRIMARY KEY, name varchar, specialty varchar);
+todo=# CREATE TABLE doctors (id serial PRIMARY KEY, name varchar, specialty_id int);
 ```
 
 ```
 todo=# CREATE TABLE patients (id serial PRIMARY KEY, name varchar, birthdate date);
+```
+
+```
+todo=# CREATE TABLE specialties (id serial PRIMARY KEY, specialty varchar);
 ```
 
 ```

@@ -4,15 +4,19 @@ describe(Doctor) do
 
   describe('#name') do
     it("returns name of doctor") do
-      dr = Doctor.new({:name => "Mike", :specialty => "awesomeness"})
+      specialty1 = Specialty.new({:specialty => "heart"})
+      specialty1.save()
+      dr = Doctor.new({:name => "Mike", :specialty_id => specialty1.id()})
       expect(dr.name()).to(eq("Mike"))
     end
   end
 
-  describe('#specialty') do
-    it("returns specialty of doctor") do
-      dr = Doctor.new({:name => "Mike", :specialty => "awesomeness"})
-      expect(dr.specialty()).to(eq("awesomeness"))
+  describe('#specialty_id') do
+    it("returns specialty_id of doctor") do
+      specialty1 = Specialty.new({:specialty => "heart"})
+      specialty1.save()
+      dr = Doctor.new({:name => "Mike", :specialty_id => specialty1.id()})
+      expect(dr.specialty_id()).to(eq(specialty1.id()))
     end
   end
 
@@ -24,15 +28,19 @@ describe(Doctor) do
 
   describe('#==') do
     it("matches if name, specialty, and id are the same") do
-      dr = Doctor.new({:name => "Mike", :specialty => "awesomeness"})
-      dr2 = Doctor.new({:name => "Mike", :specialty => "awesomeness"})
+      specialty1 = Specialty.new({:specialty => "heart"})
+      specialty1.save()
+      dr = Doctor.new({:name => "Mike", :specialty_id => specialty1.id()})
+      dr2 = Doctor.new({:name => "Mike", :specialty_id => specialty1.id()})
       expect(dr).to(eq(dr2))
     end
   end
 
   describe('#save') do
     it('saves a doctor into the dr database') do
-      dr = Doctor.new({:name => "Mike", :specialty => "awesomeness"})
+      specialty1 = Specialty.new({:specialty => "heart"})
+      specialty1.save()
+      dr = Doctor.new({:name => "Mike", :specialty_id => specialty1.id()})
       dr.save()
       expect(Doctor.all()).to(eq([dr]))
     end
@@ -40,8 +48,10 @@ describe(Doctor) do
 
   describe('.find') do
     it('returns doctor object given id') do
-      dr = Doctor.new({:name => "Mike", :specialty => "awesomeness"})
-      dr2 = Doctor.new({:name => "Grace", :specialty => "coolster"})
+      specialty1 = Specialty.new({:specialty => "heart"})
+      specialty1.save()
+      dr = Doctor.new({:name => "Mike", :specialty_id => specialty1.id()})
+      dr2 = Doctor.new({:name => "Grace", :specialty_id => specialty1.id()})
       dr.save()
       dr2.save()
       expect(Doctor.find(dr2.id())).to(eq(dr2))
@@ -50,8 +60,10 @@ describe(Doctor) do
 
   describe('#delete') do
     it('deletes a dr from the database') do
-      dr = Doctor.new({:name => "Mike", :specialty => "awesomeness"})
-      dr2 = Doctor.new({:name => "Grace", :specialty => "coolster"})
+      specialty1 = Specialty.new({:specialty => "heart"})
+      specialty1.save()
+      dr = Doctor.new({:name => "Mike", :specialty_id => specialty1.id()})
+      dr2 = Doctor.new({:name => "Grace", :specialty_id => specialty1.id()})
       dr.save()
       dr2.save()
       dr2.delete()
