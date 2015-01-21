@@ -59,4 +59,20 @@ describe(Patient) do
     end
   end
 
+  describe('#doctors') do
+    it('returns doctors for this patient') do
+      specialty1 = Specialty.new({:specialty => "heart"})
+      specialty1.save()
+      dr = Doctor.new({:name => "Grace", :specialty_id => specialty1.id()})
+      dr.save()
+      dr2 = Doctor.new({:name => "Foo", :specialty_id => specialty1.id()})
+      dr2.save()
+      patient1 = Patient.new({:name => "Mike", :birthdate => "2000-01-01"})
+      patient1.save()
+      patient1.add_doctor(dr)
+      patient1.add_doctor(dr2)
+      expect(patient1.doctors()).to(eq([dr, dr2]))
+    end
+  end
+
 end

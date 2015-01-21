@@ -40,4 +40,24 @@ class Patient
     DB.exec("DELETE FROM patients WHERE id = #{self.id()};")
   end
 
+  define_method(:doctors) do
+    all_doctors = []
+    returned_doctors_ids = DB.exec("SELECT doctor_id FROM doctors_patients WHERE patient_id = #{self.id()};")
+    returned_doctors_ids.each() do |dr_id|
+      dr_id_int = dr_id.fetch('doctor_id').to_i()
+      returned_doctors = DB.exec("SELECT * FROM doctors WHERE id = #{dr_id_int};")
+      returned_doctors.each() do |dr|
+        name = dr.fetch('name')
+        specialty_id = dr.fetch('specialty_id').to_i()
+        id = dr.fetch('id').to_i()
+        all_doctors.push(Doctor.new({:name => name, :specialty_id => specialty_id, :id => id}))
+      end
+    end
+    all_doctors
+  end
+
+  define_method(:add_doctor) do |dr|
+    DB.exec("INSERT INTO doctors_patients (doctor_id, patient_id) VALUES (#{dr.id()}, #{self.id()});")
+  end
+
 end
