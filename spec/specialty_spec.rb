@@ -52,4 +52,18 @@ describe(Specialty) do
     end
   end
 
+  describe('#doctors') do
+    it("return array of doctors with this specialty") do
+      specialty1 = Specialty.new({:specialty => "heart"})
+      specialty2 = Specialty.new({:specialty => "foot"})
+      specialty1.save()
+      specialty2.save()
+      dr = Doctor.new({:name => "Mike", :specialty_id => specialty1.id()})
+      dr2 = Doctor.new({:name => "Grace", :specialty_id => specialty1.id()})
+      dr.save()
+      dr2.save()
+      expect(specialty1.doctors()).to(eq([dr, dr2]))
+    end
+  end
+
 end

@@ -39,4 +39,16 @@ class Specialty
     DB.exec("DELETE FROM specialties WHERE id = #{self.id()};")
   end
 
+  define_method(:doctors) do
+    specialty_doctors = []
+    doctors = DB.exec("SELECT * FROM doctors WHERE specialty_id = #{self.id()};")
+    doctors.each() do |dr|
+      name = dr.fetch('name')
+      id = dr.fetch('id').to_i()
+      specialty_doctors.push(Doctor.new({:name => name, :id => id, :specialty_id => self.id()}))
+    end
+    specialty_doctors
+  end
+
+
 end
